@@ -39,7 +39,7 @@ if(!empty($_POST))
 			$errors[] = 'Veuillez entrer un nom de plus de 3 caratères';
 		}
 
-		if(strlen($post['description'])<15)
+		if(strlen($post['description'])<10)
 		{
 			$errors[] = 'Veuillez entrer une description plus longue (min 15 caracteres)';
 		}
@@ -91,6 +91,22 @@ if(!empty($_POST))
 			$errorsText = implode('<br>', $errors);
 		}else{
 
+			// Insertion des categories dans la BDD
+			$insert_prod = $bdd->prepare('INSERT INTO produits (libelle, description, categorie, ref, tarifht, tva, photo_url) VALUES (:libelle, :description, :categorie, :ref, :tarifht, :tva, :photo_url)');
+
+			$insert_prod->bindValue(':libelle', $post['Libelle']);
+			$insert_prod->bindValue(':description', $post['description']);
+			$insert_prod->bindValue(':categorie', $post['cat'], PDO::PARAM_INT);
+			$insert_prod->bindValue(':ref', $post['reference']);
+			$insert_prod->bindValue(':tarifht', $post['tarifht'], PDO::PARAM_INT);
+			$insert_prod->bindValue(':tva', $post['tva'], PDO::PARAM_INT);
+			$insert_prod->bindValue(':photo_url', $newPictureName);
+
+			if($insert_prod->execute()){
+				$success = 'Produit ajouter avec succés';
+			}else{
+				var_dump($insert_prod->errorInfo());
+			}
 		}
 	
 	}
@@ -106,19 +122,36 @@ if(!empty($_POST))
 			$errors[] = 'Veuillez entrer un nom de plus de 3 caratères';
 		}
 
-		if(strlen($post['description'])<15)
+		if(strlen($post['description'])<10)
 		{
 			$errors[] = 'Veuillez entrer une description plus longue (min 15 caracteres)';
 		}
-
+		// Insertion des categories dans la BDD
 		if(count($errors) > 0){
-			$errorsText = implode('<br>', $errors);
+			$errorsText = implode('<br>',$errors);
 		}else{
+			$insert_cat = $bdd->prepare('INSERT INTO categorie (name, description_cat) VALUES (:dataname, :datadescription)');
+			
+			$insert_cat->bindValue(':dataname', $post['name'], PDO::PARAM_STR);
+			$insert_cat->bindValue(':datadescription', $post['description'], PDO::PARAM_STR);
 
-		}
+			if($insert_cat->execute()){
+				$success = 'Nouvelle categorie ajouter a la base de donnée';
+			}else{
+				var_dump($insert_cat->errorInfo());
+			}
 
+		}//====================================
 	}
 }
+	// Listing de toutes les catégorie
+	$categ = $bdd->prepare('SELECT id, name FROM categorie');
+
+	if($categ->execute()){
+		$list_categ = $categ->fetchAll(PDO::FETCH_ASSOC);
+	}else{
+		var_dump($categ->errorInfo());
+	}
 
 
 ?><!DOCTYPE html>
@@ -155,7 +188,7 @@ if(!empty($_POST))
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Liste des produits</a></li>
+						<li class="active"><a href="#">Ajout Catégorie/Produits</a></li>
 						<li><a href="#">Link</a></li>
 					</ul>
 				</div><!-- /.navbar-collapse -->
@@ -171,6 +204,15 @@ if(!empty($_POST))
 	    	<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
 	        <span class="sr-only">Error:</span>
 	        <?= $errorsText; ?>
+	    </div>
+    <?php endif; ?>
+
+    <?php if(isset($success)): ?>
+	    <div class="alert alert-success alert-dismissible divfade" role="alert"">
+	    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	    	<span class="glyphicon glyphicon-okn" aria-hidden="true"></span>
+	        <span class="sr-only">Error:</span>
+	        <?= $success; ?>
 	    </div>
     <?php endif; ?>
 	<div class="row">
@@ -221,9 +263,10 @@ if(!empty($_POST))
 				<div class="form-group">
 					<label for="TVA">Catégorie:</label>
 					<select name="cat" id="cat" class="form-control">
-						<option value="0.055">5.5%</option>
-						<option value="0.1">10%</option>
-						<option value="0.2">20%</option>
+						<?php foreach ($list_categ as $value):?>
+							<option value="<?=$value['id']?>"><?=$value['name']?></option>
+						<?php endforeach; ?>
+						
 					</select>
 				</div>
 
