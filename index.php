@@ -26,68 +26,101 @@ $mimeTypeAvailable = ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/png', 'im
 
 $errors = [];	
 
-
 #verification de l'existance de l'envoi des données puis vérificatio de celle ci
 if(!empty($_POST))
 {
-	foreach ($_POST as $key => $value)
-	{
-		$post[$key] = (trim(strip_tags($value))); 
-	}
-	if(strlen($post['Libelle'])<3)
-	{
-		$errors[] = 'Veuillez entrer un nom de plus de 3 caratères';
-	}
+	if(isset($_POST['produit'])){ // le submit a ete validé sur produit
+		foreach ($_POST as $key => $value)
+		{
+			$post[$key] = (trim(strip_tags($value))); 
+		}
+		if(strlen($post['Libelle'])<3)
+		{
+			$errors[] = 'Veuillez entrer un nom de plus de 3 caratères';
+		}
 
-	if(strlen($post['description'])<15)
-	{
-		$errors[] = 'Veuillez entrer une description plus longue (min 15 caracteres)';
-	}
+		if(strlen($post['description'])<15)
+		{
+			$errors[] = 'Veuillez entrer une description plus longue (min 15 caracteres)';
+		}
 
-	if(empty($post['reference'])){
-		$errors[] = 'Veuillez choisir la reference';
-	}
+		if(empty($post['reference'])){
+			$errors[] = 'Veuillez choisir la reference';
+		}
 
-	if(empty($post['tarifht'])){
-		$errors[] = 'Veuillez entrer un tarif';
-	}
+		if(empty($post['tarifht']) || !is_numeric($post['tarifht'])){
+			$errors[] = 'Veuillez entrer un tarif en chiffre';
+		}
 
-	if(empty($post['tva'])){
-		$errors[] = 'Veuillez choisir une tva';
-	}
-    
+		if(empty($post['tva'])){
+			$errors[] = 'Veuillez choisir une tva';
+		}
+	    
 
-	if(isset($_FILES['photo']) && $_FILES['photo']['error'] === 0){
+		if(isset($_FILES['photo']) && $_FILES['photo']['error'] === 0){
 
-		$finfo = new finfo(); //déclaration d'un objet de type finfo
-		$mimeType = $finfo->file($_FILES['photo']['tmp_name'], FILEINFO_MIME_TYPE); // récuperation du type mime du fichier, cette façon de faire est la plus sécure
+			$finfo = new finfo(); //déclaration d'un objet de type finfo
+			$mimeType = $finfo->file($_FILES['photo']['tmp_name'], FILEINFO_MIME_TYPE); // récuperation du type mime du fichier, cette façon de faire est la plus sécure
 
-		$extension = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);//Récuperer l'extension du ficher grace au path info
+			$extension = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);//Récuperer l'extension du ficher grace au path info
 
-		if(in_array($mimeType, $mimeTypeAvailable)){
+			if(in_array($mimeType, $mimeTypeAvailable)){
 
-			if($_FILES['photo']['size'] <= $maxSize){
+				if($_FILES['photo']['size'] <= $maxSize){
 
-				if(!is_dir($uploadDir)){
-					mkdir($uploadDir, 0755);//création du dossier via le CHmod, permet d'avoir les droit d'ecriture
-				}
+					if(!is_dir($uploadDir)){
+						mkdir($uploadDir, 0755);//création du dossier via le CHmod, permet d'avoir les droit d'ecriture
+					}
 
-				$newPictureName = uniqid('avatar_').'.'.$extension;//changeent du nom du fichier avec le prefixe avatar et lui donnant un id unique. Adie les remplacement
+					$newPictureName = uniqid('produits_').'.'.$extension;//changeent du nom du fichier avec le prefixe avatar et lui donnant un id unique. Adie les remplacement
 
-				if(!move_uploaded_file($_FILES['photo']['tmp_name'], $uploadDir.$newPictureName)){
-					$errors[] = 'Erreur lors de l\'upload de la photo';
+					if(!move_uploaded_file($_FILES['photo']['tmp_name'], $uploadDir.$newPictureName)){
+						$errors[] = 'Erreur lors de l\'upload de la photo';
+					}
+				}else {
+					$errors[] = 'La taille du fichier excède 2 Mo';
 				}
 			}else {
-				$errors[] = 'La taille du fichier excède 2 Mo';
+				$errors[] = 'Le fichier n\'est pas une image valide';
 			}
 		}else {
-			$errors[] = 'Le fichier n\'est pas une image valide';
+			$newPictureName = 'produit.png';
 		}
-	}else {
-		$newPictureName = 'avatar.png';
+
+		if(count($errors) > 0){
+			$errorsText = implode('<br>', $errors);
+		}else{
+
+		}
+	
 	}
 
+
+	if(isset($_POST['categorie'])){ // le submit a ete validé sur catégorie
+		foreach ($_POST as $key => $value)
+		{
+			$post[$key] = (trim(strip_tags($value))); 
+		}
+		if(strlen($post['name'])<3)
+		{
+			$errors[] = 'Veuillez entrer un nom de plus de 3 caratères';
+		}
+
+		if(strlen($post['description'])<15)
+		{
+			$errors[] = 'Veuillez entrer une description plus longue (min 15 caracteres)';
+		}
+
+		if(count($errors) > 0){
+			$errorsText = implode('<br>', $errors);
+		}else{
+
+		}
+
+	}
 }
+
+
 ?><!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -97,6 +130,8 @@ if(!empty($_POST))
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	
 	
 
@@ -105,7 +140,6 @@ if(!empty($_POST))
 	
 		
 	<nav class="navbar navbar-inverse" role="navigation">
-		<div class="container-fluid">
 		<div class="container">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
@@ -121,7 +155,7 @@ if(!empty($_POST))
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Link</a></li>
+						<li class="active"><a href="#">Liste des produits</a></li>
 						<li><a href="#">Link</a></li>
 					</ul>
 				</div><!-- /.navbar-collapse -->
@@ -131,56 +165,108 @@ if(!empty($_POST))
 
 
 <div class="container">
+	<?php if(isset($errorsText)): ?>
+	    <div class="alert alert-danger alert-dismissible" role="alert"">
+	    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	    	<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+	        <span class="sr-only">Error:</span>
+	        <?= $errorsText; ?>
+	    </div>
+    <?php endif; ?>
+	<div class="row">
+		<div class="col-xs-4">
 
-	<form action="" method="POST" role="form" enctype="multipart/form-data">
-		<legend>nouveau produit</legend>
-	
-		<div class="form-group">
-			<label for="Libellé">Libellé</label>
-			<input type="text" name="Libelle" class="form-control" id="Libelle" placeholder="Le nom du Produit">
+			<!--=============== Formulaire pour ajouter une catégorie ===============-->
+			<form method="POST" class="form-horizontal" role="form">
+						<legend>Nouvelle Catégorie</legend>
+					<div class="form-group">
+						<label for="name">Nom de la Catégorie</label>
+						<input type="text" name="name" class="form-control" id="name" placeholder="Nom de la catégorie">
+					</div>
+
+					<div class="form-group">
+						<label for="description">Description de la Catégorie</label>
+						<input type="text" name="description" class="form-control" id="description" placeholder="Description de la catégorie">
+					</div>
+
+					<div class="form-group">
+						<div class="col-xs-12 text-center">
+							<button type="submit" class="btn btn-primary" name="categorie">Nouvelle Catégorie</button>
+						</div>
+					</div>
+			</form>
 		</div>
+		<!--======================== Fin form catégorie ====================-->
 
-		<div class="form-group">
-			<label for="Description">Description</label>
-			<input type="text" name="description" class="form-control" id="Description" placeholder="Décrivez le Produit">
+		<!--=============== Formulaire pour ajouter un Produit ===============-->
+		<div class="col-xs-8">
+			<form method="POST" class="form-horizontal form-horizontal-border-right" role="form" enctype="multipart/form-data">
+				<legend>Nouveau produit</legend>
+			
+				<div class="form-group">
+					<label for="Libellé">Libellé</label>
+					<input type="text" name="Libelle" class="form-control" id="Libelle" placeholder="Le nom du Produit">
+				</div>
+
+				<div class="form-group">
+					<label for="Description">Description</label>
+					<input type="text" name="description" class="form-control" id="Description" placeholder="Décrivez le Produit">
+				</div>
+
+				<div class="form-group">
+					<label for="Reference">Reference</label>
+					<input type="text" name="reference" class="form-control" id="Reference" placeholder="Reference du produit">
+				</div>
+
+				<div class="form-group">
+					<label for="TVA">Catégorie:</label>
+					<select name="cat" id="cat" class="form-control">
+						<option value="0.055">5.5%</option>
+						<option value="0.1">10%</option>
+						<option value="0.2">20%</option>
+					</select>
+				</div>
+
+
+				<div class="form-group">
+					<label for="Tarifht">Tarif HT</label>
+					<input type="text" name="tarifht" class="form-control" id="tarifht" placeholder="Prix Hors Taxe">
+				</div>
+
+				<div class="form-group">
+					<label for="TVA">TVA a appliqué:</label>
+					<select name="tva" id="TVA" class="form-control">
+						<option value="0.055">5.5%</option>
+						<option value="0.1">10%</option>
+						<option value="0.2">20%</option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="Photo">Photo</label>
+					<input type="file" name="photo" class="form-control" id="Photo" placeholder="Photo du Produit">
+				</div>
+
+				<div class="col-xs-12 text-center">
+					<button type="submit" class="btn btn-primary" name="produit">Nouveau Produit</button>
+				</div>
+			</form>
+			<!--======================== Fin form Produit ====================-->
 		</div>
-
-		<div class="form-group">
-			<label for="Reference">Reference</label>
-			<input type="text" name="reference" class="form-control" id="Reference" placeholder="Reference du produit">
-		</div>
-
-		<div class="form-group">
-			<label for="Tarifht">Tarif HT</label>
-			<input type="text" name="tarifht" class="form-control" id="tarifht" placeholder="Prix Hors Taxe">
-		</div>
-
-		<div class="form-group">
-			<label for="TVA">TVA a appliqué:</label>
-			<select name="tva" id="TVA" class="form-control">
-				<option value=""></option>
-			</select>
-		</div>
-
-		<div class="form-group">
-			<label for="Photo">Photo</label>
-			<input type="file" name="photo" class="form-control" id="Photo" placeholder="Photo du Produit">
-		</div>
-	
-
-		<button type="submit" class="btn btn-primary">Submit</button>
-	</form>
-
+	</div>
 </div>
 
 
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
-
-
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <!-- Latest compiled and minified JS -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<script>
+	$(function(){
+		$('.divfade').fadeOut(6000);
+	});
+</script>
 </body>
 </html>
 

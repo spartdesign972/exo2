@@ -1,0 +1,14 @@
+
+.form-horizontal-border-right{
+	border-left: 1px solid #000;
+	padding-left: 30px;
+}
+
+legend{
+	box-sizing: border-box;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
+	padding: 10px;
+	color: #fff;
+	margin: 0 0 20px -15px;
+}
