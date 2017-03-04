@@ -21,7 +21,7 @@ require_once 'inc/connect.php';
 
 #définition de quelques variabl pour gerer les images
 $maxSize = (1024 * 1000) * 2; // Taille maximum du fichier
-$uploadDir = 'uploads/'; // Répertoire d'upload
+$uploadDir = '/assets/img/imgArticles/'; // Répertoire d'upload
 $mimeTypeAvailable = ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'];
 
 $errors = [];	
@@ -84,7 +84,7 @@ if(!empty($_POST))
 				$errors[] = 'Le fichier n\'est pas une image valide';
 			}
 		}else {
-			$newPictureName = 'produit.png';
+			$newPictureName = 'default-image.png';
 		}
 
 		if(count($errors) > 0){
@@ -188,8 +188,20 @@ if(!empty($_POST))
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Ajout Catégorie/Produits</a></li>
-						<li><a href="#">Link</a></li>
+						<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catégorie/Articles<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="addCatArt.php">ajouter</a></li>
+								<li><a href="#">Modifier</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="#">Supprimer</a></li>
+							</ul>
+						</li>
+						<li><a href="listeArticles.php">Liste des articles</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Mon panier <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+</a></li>
 					</ul>
 				</div><!-- /.navbar-collapse -->
 			</div>
@@ -243,7 +255,7 @@ if(!empty($_POST))
 		<!--=============== Formulaire pour ajouter un Produit ===============-->
 		<div class="col-xs-8">
 			<form method="POST" class="form-horizontal form-horizontal-border-right" role="form" enctype="multipart/form-data">
-				<legend>Nouveau produit</legend>
+				<legend>Nouvelle Article</legend>
 			
 				<div class="form-group">
 					<label for="Libellé">Libellé</label>
