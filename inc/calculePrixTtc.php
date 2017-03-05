@@ -5,7 +5,7 @@ function prixttc($prixht, $tva){
 	$prix_ht = (float)$prixht;
 	$tvaAppliquer = (float)$tva;
 
-	return $prixttc = $prix_ht + ($prix_ht * $tvaAppliquer);
+	return round($prixttc = $prix_ht + ($prix_ht * $tvaAppliquer),1, PHP_ROUND_HALF_EVEN);
 }
 
 ?>

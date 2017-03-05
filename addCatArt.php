@@ -172,7 +172,7 @@ if(!empty($_POST))
 <body>
 	
 		
-	<nav class="navbar navbar-inverse" role="navigation">
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
@@ -209,7 +209,7 @@ if(!empty($_POST))
 	</nav>
 
 
-<div class="container">
+<div class="container main">
 	<?php if(isset($errorsText)): ?>
 	    <div class="alert alert-danger alert-dismissible" role="alert"">
 	    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
