@@ -22,7 +22,7 @@ $(function(){
 					  modal.find('.caption').append('<h3>'+data.libelle+'</h3><p class="desc">'+data.description+'</p><p>Prix HT : <strong>'+data.tarifht+'€</strong></p><p>Prix TTC : <strong>'+data.prixttc+'€</strong></p>')
 
 					  // Je rajoute un btn en passant l'id pour mettre en variable de session si clic
-					  modal.find('.modal-footer').append('<a href="?idproduit='+data.id+'" class="btn btn-primary">Ajouter au panier</a>')
+					  modal.find('.modal-footer').append('<a href="./inc/addPanierSession.php?nomproduit='+data.libelle+'&amp;prixttc='+data.prixttc+'&amp;q=1" class="btn btn-primary" type="submit">Ajouter au panier</a>')
 					},"json");
 		});
 	});

@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require_once 'inc/connect.php';
 
 // Créer un formulaire permettant de créer un produit (exemples : livre, objet divers, etc)
@@ -160,54 +161,12 @@ if(!empty($_POST))
 	<meta charset="UTF-8">
 	<title>Creation de produits</title>
 	
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-	
-	
+	<?php require_once 'inc/headerlink.php'; ?>
 
 </head>
 <body>
 	
-		
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">MonCommerce</a>
-				</div>
-		
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse navbar-ex1-collapse">
-					<ul class="nav navbar-nav">
-						<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catégorie/Articles<span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="addCatArt.php">ajouter</a></li>
-								<li><a href="#">Modifier</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">Supprimer</a></li>
-							</ul>
-						</li>
-						<li><a href="listeArticles.php">Liste des articles</a></li>
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Mon panier <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-</a></li>
-					</ul>
-				</div><!-- /.navbar-collapse -->
-			</div>
-		</div>
-	</nav>
-
+	<?php require_once 'inc/nav.php'; ?>
 
 <div class="container main">
 	<?php if(isset($errorsText)): ?>
