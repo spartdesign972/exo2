@@ -187,7 +187,7 @@ if(!empty($_POST))
 	    </div>
     <?php endif; ?>
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-sm-4 col-xs-10 col-xs-offset-1 col-sm-offset-0">
 
 			<!--=============== Formulaire pour ajouter une catégorie ===============-->
 			<form method="POST" class="form-horizontal" role="form">
@@ -212,7 +212,7 @@ if(!empty($_POST))
 		<!--======================== Fin form catégorie ====================-->
 
 		<!--=============== Formulaire pour ajouter un Produit ===============-->
-		<div class="col-xs-8">
+		<div class="col-sm-8 col-xs-10 col-xs-offset-1 col-sm-offset-0">
 			<form method="POST" class="form-horizontal form-horizontal-border-right" role="form" enctype="multipart/form-data">
 				<legend>Nouvelle Article</legend>
 			
