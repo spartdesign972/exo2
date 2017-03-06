@@ -34,7 +34,7 @@ $errors = [];
 								<li><a href="addCatArt.php">ajouter</a></li>
 								<li><a href="#">Modifier</a></li>
 								<li role="separator" class="divider"></li>
-								<li><a href="#">Supprimer</a></li>
+								<li><a href="suppArticle.php?unique=false">Supprimer</a></li>
 							</ul>
 						</li>
 						<li><a href="listeArticles.php">Liste des articles</a></li>

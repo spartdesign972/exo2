@@ -40,7 +40,7 @@ require_once 'inc/articleById.php';
 
 		  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-center">
 		    <div class="thumbnail">
-		      <img src="assets/img/imgArticles/<?=$value['photo_url']?>" alt="<?=$list_arti['photo_url']?>">
+		      <img src="assets/img/imgArticles/<?=$value['photo_url']?>" alt="<?=$list_arti['photo_url']?>"">
 		      <div class="caption">
 		        <h3><?=$value['libelle']?></h3>
 		        <p class="desc"><?=substr($value['description'],0,20);?>...</p>
@@ -48,7 +48,8 @@ require_once 'inc/articleById.php';
 		        <p>Prix TTC : <strong><?=prixttc($value['tarifht'], $value['tva'])?>€</strong></p>
 		        <p>
 				  		
-				  		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-idart="<?=$value['id']?>">+ plus de détails</button>
+				  		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-idart="<?=$value['id'];?>">+ plus de détails</button>
+				  		<a href="suppArticle.php?idart=<?=$value['id'];?>&amp;unique=" class="btn btn-primary">Supprimer cet article</a>
 		        </p>
 		      </div>
 		    </div>

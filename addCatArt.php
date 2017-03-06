@@ -22,7 +22,7 @@ require_once 'inc/connect.php';
 
 #définition de quelques variabl pour gerer les images
 $maxSize = (1024 * 1000) * 2; // Taille maximum du fichier
-$uploadDir = '/assets/img/imgArticles/'; // Répertoire d'upload
+$uploadDir = './assets/img/imgArticles/'; // Répertoire d'upload
 $mimeTypeAvailable = ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'];
 
 $errors = [];	
