@@ -1,4 +1,30 @@
 
+.cartouchePanier{
+	display: block;
+	color: #fff;
+	height: 95px;
+	width: 220px;
+	position: fixed;
+	top:  25px;
+	right: 60px;
+	text-align: center;
+	background-color: red;
+	border-radius: 15px;
+	z-index: 100000;
+	box-shadow: 2px 2px 2px #000;
+}
+.cartouchePanier a{
+	color: #fff;
+}
+.cartouchePanier a:hover{
+	color:  #fff;
+}
+.cartouchePanier >p{
+	margin:  5px 0 2px;
+}
+
+
+
 .form-horizontal-border-right{
 	border-left: 1px solid #000;
 	padding-left: 30px;

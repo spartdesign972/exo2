@@ -1,7 +1,7 @@
 <?php 
 
 require_once 'connect.php';
-require_once 'calculePrixTtc.php';
+require_once 'calculePrix.php';
 
 $affArticle = $bdd->prepare('SELECT * FROM produits WHERE id = :idarticle');
 

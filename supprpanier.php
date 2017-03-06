@@ -4,10 +4,9 @@ session_start();
 
 if(isset($_GET)){
 	if(isset($_GET['valide']) && $_GET['valide'] == 'true'){
+		
 		unset($_SESSION['panier']);
-		$_SESSION = array();
-		session_destroy();
-		sleep(1);
+
 		header('location: listeArticles.php');
 	}
 	if(isset($_GET['valide']) && $_GET['valide'] == 'false'){

@@ -2,7 +2,7 @@
 session_start();
 
 require_once 'inc/connect.php';
-require_once  'inc/calculePrixTtc.php';
+require_once  'inc/calculePrix.php';
 require_once 'inc/articleById.php';
 
 
@@ -49,7 +49,7 @@ require_once 'inc/articleById.php';
 		        <p>
 				  		
 				  		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-idart="<?=$value['id'];?>">+ plus de détails</button>
-				  		<a href="suppArticle.php?idart=<?=$value['id'];?>&amp;unique=" class="btn btn-primary">Supprimer cet article</a>
+				  		<a href="suppArticle.php?idart=<?=$value['id'];?>&amp;unique=true" class="btn btn-primary">Supprimer cet article</a>
 		        </p>
 		      </div>
 		    </div>

@@ -2,7 +2,7 @@
 session_start();
 
 require_once 'inc/connect.php';
-require_once  'inc/calculePrixTtc.php';
+require_once  'inc/calculePrix.php';
 require_once 'inc/articleById.php';
 
 

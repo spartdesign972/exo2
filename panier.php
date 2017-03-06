@@ -1,6 +1,9 @@
 <?php 
 session_start();
 
+require_once 'inc/connect.php';
+require_once 'inc/calculePrix.php';
+
 	
 ?><!DOCTYPE html>
 <html lang="fr">
@@ -12,7 +15,7 @@ session_start();
 	
 </head>
 <body>
-	
+	 
 	<?php require_once 'inc/nav.php'; ?>
 
 	<div class="container main">
@@ -43,13 +46,20 @@ session_start();
 						<td><?=$_SESSION['panier']['prixArticle'][$i]?>€</td>
 						<td><?=($_SESSION['panier']['prixArticle'][$i]*$_SESSION['panier']['quantite'][$i])?>€</td>
 					</tr>
-				<?php endfor; 
+				<?php endfor;
 					endif;
 				?>
+					<tr>
+						<td>Total de la commande : </td>
+						<td colspan="3" class="text-center"><strong><?=montanTotal(); ?>€</strong></td>
+					</tr>
 
 			</tbody>
 		</table>
-		<a href="supprpanier.php" >Supprimer le panier</a>
+		<div class="row text-center">
+			<a href="supprpanier.php" class="btn btn-primary">Supprimer le panier</a>
+			<a href="verifSessionUser.php" class="btn btn-primary">Commander !</a>
+		</div>
 
 	</div>
 </div>

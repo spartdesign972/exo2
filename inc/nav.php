@@ -1,5 +1,19 @@
 <?php 
 
+// verification si le user a un panier sauvegarder
+if(!empty($_SESSION['me']) || ($_SESSION['is_logged'] == true)){
+	$req = $bdd->prepare('SELECT COUNT(*) FROM orders WHERE id_client = :idclient');
+
+	$req->bindValue(':idclient',$_SESSION['me']['id'], PDO::PARAM_INT);
+
+	if($req->execute()){
+		$nbPanierSav = $req->fetchcolumn();
+	}else{
+		var_dump($req->errorInfos());
+	}
+}
+
+
 // on calcule et affiche le nombre d'article
 if(isset($_SESSION['panier'])){
 	$nbart = 0;
@@ -39,12 +53,21 @@ $errors = [];
 						</li>
 						<li><a href="listeArticles.php">Liste des articles</a></li>
 					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li>
-							<a href="panier.php">Mon panier <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;<?=$nbart?>&nbsp;Article(s)</a>
-						</li>
-					</ul>
 				</div><!-- /.navbar-collapse -->
 			</div>
 		</div>
 	</nav>
+	<div class="cartouchePanier">
+		<?php if(isset($_SESSION['me'])):?>
+			<p>Bonjour: <?=$_SESSION['me']['firstname']?> <?=$_SESSION['me']['lastname']?></p>
+			<a href="logout.php">Me Déconnecter</a><br>
+		<?php endif; ?>
+
+		<?php if(!empty($_SESSION['panier'])):?>
+			<a href="panier.php">Mon panier <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;<?=$nbart?>&nbsp;Article(s)</a>
+		<?php endif; ?>
+
+		<?php if(isset($nbPanierSav)):?>
+			<br><a href="#">Vous avez <?=$nbPanierSav ?> panier sauvegarder</a>
+		<?php endif; ?>
+	</div>
