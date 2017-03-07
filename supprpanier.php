@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+  require_once 'inc/connect.php';
 
 if(isset($_GET)){
 	if(isset($_GET['valide']) && $_GET['valide'] == 'true'){

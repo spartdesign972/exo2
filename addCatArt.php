@@ -75,6 +75,7 @@ if(!empty($_POST))
 
 					$newPictureName = uniqid('produits_').'.'.$extension;//changeent du nom du fichier avec le prefixe avatar et lui donnant un id unique. Adie les remplacement
 
+
 					if(!move_uploaded_file($_FILES['photo']['tmp_name'], $uploadDir.$newPictureName)){
 						$errors[] = 'Erreur lors de l\'upload de la photo';
 					}

@@ -40,7 +40,7 @@ require_once 'inc/articleById.php';
 
 		  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-center">
 		    <div class="thumbnail">
-		      <img src="assets/img/imgArticles/<?=$value['photo_url']?>" alt="<?=$list_arti['photo_url']?>"" class="img-responsive">
+		      <img src="assets/img/imgArticles/<?=$value['photo_url']?>" alt="<?=$list_arti['photo_url']?>"">
 		      <div class="caption">
 		        <h3><?=$value['libelle']?></h3>
 		        <p class="desc"><?=substr($value['description'],0,20);?>...</p>

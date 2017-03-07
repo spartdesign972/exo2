@@ -68,6 +68,6 @@ $errors = [];
 		<?php endif; ?>
 
 		<?php if(isset($nbPanierSav)):?>
-			<br><a href="#">Vous avez <?=$nbPanierSav ?> panier sauvegarder</a>
+			<br><a href="././mescommandeEnregistrer.php?id=<?=$_SESSION['me']['id']?>">Vous avez <?=$nbPanierSav ?> panier sauvegarder</a>
 		<?php endif; ?>
 	</div>
