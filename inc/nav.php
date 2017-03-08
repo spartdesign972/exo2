@@ -61,6 +61,8 @@ $errors = [];
 		<?php if(isset($_SESSION['me'])):?>
 			<p>Bonjour: <?=$_SESSION['me']['firstname']?> <?=$_SESSION['me']['lastname']?></p>
 			<a href="logout.php">Me Déconnecter</a><br>
+		<?php else: ?>
+			<a href="login.php">Me Connecter</a><br>
 		<?php endif; ?>
 
 		<?php if(!empty($_SESSION['panier'])):?>

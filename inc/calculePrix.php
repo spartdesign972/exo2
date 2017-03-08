@@ -21,21 +21,4 @@ function montanTotal(){
 	return $total;
 }
 
-// $reqidprix = $bdd->prepare('SELECT id, tarifht, tva FROM produits');
-// function montanArray(){
-
-// 	$total = 0;
-	
-// 	if($reqidprix->execute()){
-// 		$idprix = $reqidprix->fetchAll();
-// 	}else{
-// 		var_dump($reqidprix->errorInfo());
-// 	}
-
-// 	return var_dump($idprix);
-// 	// foreach ($tableau as $key => $value) {
-		
-// 	// }
-// }
-
 ?>

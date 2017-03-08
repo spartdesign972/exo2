@@ -46,10 +46,9 @@ require_once 'inc/articleById.php';
 		        <p class="desc"><?=substr($value['description'],0,20);?>...</p>
 		        <p>Prix HT : <strong><?=$value['tarifht']?>€</strong></p>
 		        <p>Prix TTC : <strong><?=prixttc($value['tarifht'], $value['tva'])?>€</strong></p>
-		        <p>
-				  		
-				  		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-idart="<?=$value['id'];?>">+ plus de détails</button>
-				  		<a href="suppArticle.php?idart=<?=$value['id'];?>&amp;unique=true" class="btn btn-primary">Supprimer cet article</a>
+		        <p>	
+			  		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-idart="<?=$value['id'];?>">+ plus de détails</button>
+			  		<a href="suppArticle.php?idart=<?=$value['id'];?>&amp;unique=true" class="btn btn-primary">Supprimer cet article</a>
 		        </p>
 		      </div>
 		    </div>
